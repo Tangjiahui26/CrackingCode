@@ -22,8 +22,7 @@ void printLinkedList(struct Node * node) {
     cout << "NULL" << endl;
 }
 
-Node* setNext(Node* head, Node* newNode){
-    newNode->next = NULL;
+void setNext(Node*& head, Node* newNode){
     if (head == NULL){
         head = newNode;
     } else {
@@ -36,7 +35,6 @@ Node* setNext(Node* head, Node* newNode){
 
         temp->next = newNode;
     }
-    return head;
 }
 
 struct Node* sumLists(struct Node* list1, struct Node* list2, int carry) {
@@ -60,20 +58,21 @@ struct Node* sumLists(struct Node* list1, struct Node* list2, int carry) {
         Node* returnNode =sumLists(list1 == NULL ? NULL : list1->next,
                                    list2 == NULL ? NULL : list2->next,
                                    value >= 10 ? 1: 0);
-        result = setNext(result, returnNode);
+        setNext(result, returnNode);
     }
     return result;
 }
 
 int main()
 {
-    struct Node *first = pushNode(3);
+    struct Node *first = pushNode(9);
     first->next = pushNode(5);
-    first->next->next = pushNode(1);
+    first->next->next = pushNode(9);
+    first->next->next->next = pushNode(1);
 
     struct Node *second = pushNode(3);
     second->next = pushNode(5);
-    second->next->next = pushNode(1);
+    second->next->next = pushNode(3);
 
     Node* result = sumLists(first, second, 0);
     printLinkedList(result);
