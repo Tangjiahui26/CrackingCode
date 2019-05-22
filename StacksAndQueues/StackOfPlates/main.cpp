@@ -79,6 +79,7 @@ public:
         }
     }
 
+    // Might not be correct
     int popAt(int index) {
         int ind = numOfStack - index;
         if (ind < 0) {
@@ -117,7 +118,5 @@ int main()
         cout << s.pop() << " ";
     }
     cout << '\n';
-
-    cout << s.popAt(1) << endl;
     return 0;
 }
