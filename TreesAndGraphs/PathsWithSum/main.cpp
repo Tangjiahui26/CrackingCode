@@ -1,4 +1,6 @@
 #include <iostream>
+#include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -74,6 +76,57 @@ int countPathswithSum(TreeNode * node, int sum) {
     return pathsFromRoot + pathsOnLeft + pathsOnRight;
 }
 
+// approach 2: hash table
+// runtime: O(N), O(log(N)) for balanced tree
+
+void incrementHashTable(map<int, int> &table, int key, int delta){
+    int val = 0;
+    if (table.find(key) != table.end()) {
+        val = table.find(key)->second + delta;
+    } else {
+        val += delta;
+    }
+
+    if(val == 0) {
+        table.erase(key);
+    } else {
+        table[key] = val;
+    }
+
+}
+
+int countPathWithSumNEW(TreeNode * node, int targetSum,
+                        int runningSum, map<int, int> &pathCount) {
+    if (node == NULL){
+        return 0;
+    }
+
+    runningSum += node->data;
+    int sum = runningSum - targetSum;
+    int totalPaths;
+    if (pathCount.find(sum) != pathCount.end()) {
+        totalPaths = pathCount.find(sum)->second;
+    } else {
+        totalPaths = 0;
+    }
+
+    if (runningSum == targetSum) {
+        totalPaths++;
+    }
+
+    incrementHashTable(pathCount, runningSum, 1);
+    totalPaths += countPathWithSumNEW(node->left, targetSum, runningSum, pathCount);
+    totalPaths += countPathWithSumNEW(node->right, targetSum, runningSum, pathCount);
+    incrementHashTable(pathCount, runningSum, -1);
+
+    return totalPaths;
+}
+
+int countPathWithSumWrapper(TreeNode * node, int targetSum) {
+    map<int, int> x;
+    return countPathWithSumNEW(node, targetSum, 0, x);
+}
+
 
 int main()
 {
@@ -83,8 +136,11 @@ int main()
     preorder(node);
 
     int result = countPathswithSum(node,5);
+    int result_2 = countPathWithSumWrapper(node,5);
+
 
     cout << endl;
     cout << "Paths with Sum 5: " << result << endl;
+    cout << "Paths with Sum 5: " << result_2 << endl;
     return 0;
 }
