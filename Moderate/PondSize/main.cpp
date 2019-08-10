@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// runtime: O(WH) Weight Hight
+
 int computeSize(vector<vector<int>>& land, int r, int c){
     // base
     if (r < 0 || c < 0 || r >= land.size() || c >= land[0].size() || land[r][c] != 0){
