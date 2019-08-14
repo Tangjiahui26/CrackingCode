@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// a simplier version of LRU cache
+// a simple version of LRU cache
 
 class LRUCache {
     // store keys of cache
