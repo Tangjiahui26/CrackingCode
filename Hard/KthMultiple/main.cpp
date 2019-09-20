@@ -75,7 +75,7 @@ int getKthMagicNumberOptimal(int k){
         if (val == v3){
             queue3.pop();
             queue3.push(v3 * 3);
-            queue3.push(v3 * 5);
+            queue5.push(v3 * 5);
         } else if (val == v5){
             queue5.pop();
             queue5.push(v5 * 5);
