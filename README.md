@@ -1,2 +1,3 @@
 # CrackingCode
-Code implementation for Cracking the Coding Interview 6th Edition
+
+C++ implementation for Cracking the Coding Interview 6th Edition
